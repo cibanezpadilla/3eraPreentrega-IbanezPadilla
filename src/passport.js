@@ -8,6 +8,7 @@ import UsersResponseDto from "./DAL/dtos/users-response.dto.js";
 import { uManager } from "./DAL/dao/users.dao.js";
 import { cManager } from "./DAL/dao/carts.dao.js";
 import { hashData, compareData } from "./utils.js";
+import { transporter } from "./utils/nodemailer.js"
 
 
 
@@ -46,11 +47,16 @@ passport.use('signup', new LocalStrategy({
         return done(null, createdUser);
       }
       createdUser = await uManager.createUser(userDto);
-      /* const createdUser = await uManager.createUser({
-        ...req.body,
-        cart: createdCart._id,
-        password: hashedPassword,
-      }); */
+      
+      const html = `<b>Thanks for joining, ${first_name}</b>`
+
+      await transporter.sendMail({
+        from: "internetcosmikfaery@gmail.com",
+        to: email,
+        subject: "Welcome to Divinorum",
+        html: html,
+      });
+
       done(null, createdUser);
   }catch (error){
       done(error)

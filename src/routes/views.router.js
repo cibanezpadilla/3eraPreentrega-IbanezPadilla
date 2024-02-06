@@ -66,6 +66,7 @@ router.get("/error", (req, res) => {
 
 
 
+
 router.get("/chat", authMiddleware(["USER"]),(req, res) => {
   res.render("chat");
 });

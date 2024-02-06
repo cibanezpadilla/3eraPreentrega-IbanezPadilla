@@ -10,33 +10,12 @@ import UsersResponseDto from "../DAL/dtos/users-response.dto.js";
 const router = Router();
 
 
-router.post('/signup', passport.authenticate('signup'),(req, res) => {
+router.post('/signup', passport.authenticate('signup'), (req, res) => {
+  
     res.json({message: 'Signed up'})    
 })
 
 
-/* //con flash
-router.post('/login', (req, res, next) => {
-  passport.authenticate('login', { failureFlash: true, failureMessage: true, failureRedirect: '/error' }, (err, user, info) => {
-    // Verifico si algun error durante la autenticación
-    if (err) {
-      return next(err);
-    }
-    
-    // Verifico si el usuario está autenticado, si no hay user, muestra mensajes
-    //de error que armé en la estrategia en passport.js
-    // if (!user) { 
-    //   console.log(req.flash('error'));               
-    //   const messages = info.message
-    //   return res.render("login", {messages, style: "login"}); 
-    // }    
-    
-    const { first_name, last_name, email, age, role, carts } = user;
-    const token = generateToken({ first_name, last_name, email, age, role, carts });
-    res.cookie('token', token, { maxAge: 60000, httpOnly: true });
-    return res.redirect('/api/sessions/current');
-  })(req, res, next);
-}); */
 
 
 
